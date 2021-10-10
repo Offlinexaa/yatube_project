@@ -4,7 +4,26 @@
 {% endblock %}
 {% block content %}
   <!-- класс py-5 создает отступы сверху и снизу блока -->
-  <div class="container py-5">
-    {{ text }} 
+  <div class="container">
+    <h1>Последние обновления на сайте</h1>
+    {% for post in posts %}
+      <article>
+        <ul>
+          <li>
+            Автор: {{ post.author.get_full_name }}
+          </li>
+          <li>
+            Дата публикации: {{ post.pub_date|date:"d E Y" }}
+          </li>
+        </ul>
+        <p>{{ post.text }}</p>
+        {% if post.group != None %}
+          <a href="group/{{post.group.slug}}">Все записи группы {{post.group}}</a>
+        {% else %}
+          <a href="group/">Все записи без группы</a>
+        {% endif %}
+      </article>
+      {% if not forloop.last %}<hr>{% endif %}
+   {% endfor %}
   </div>  
 {% endblock  %}
