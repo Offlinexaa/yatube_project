@@ -19,7 +19,7 @@ class Group(models.Model):
     description = models.TextField(blank=True, null=True)
 
     def __str__(self) -> str:
-        return self.title
+        return str(self.title)
 
 
 class Post(models.Model):
