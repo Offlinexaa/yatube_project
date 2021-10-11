@@ -4,6 +4,7 @@ from . import views
 
 
 # Применяется для указания неймспейса в yatube/urls.py
+# pylint утверждает, что константы надо писать в UPPER_CASE ^_^
 app_name = 'posts'
 
 
