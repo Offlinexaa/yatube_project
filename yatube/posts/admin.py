@@ -1,9 +1,11 @@
+"""Настройки админки для приложения posts."""
 from django.contrib import admin
 from .models import Post
 from .models import Group
 
 
 class PostAdmin(admin.ModelAdmin):
+    """Настройка отображения модели Post в админке."""
     list_display = ('pk', 'text', 'pub_date', 'author', 'group')
     list_editable = ('group', )
     search_fields = ('text', )
@@ -12,9 +14,12 @@ class PostAdmin(admin.ModelAdmin):
 
 
 class GroupAdmin(admin.ModelAdmin):
+    """Настройка отображения модели Group в админке."""
     list_display = ('pk', 'title', 'slug', 'description')
     search_fields = ('title', 'slug')
+    empty_value_display = '-пусто-'
 
 
+# Тут регистрируем модели из models.py c указанием настроек для админки
 admin.site.register(Post, PostAdmin)
 admin.site.register(Group, GroupAdmin)

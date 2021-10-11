@@ -6,6 +6,8 @@ It exposes the WSGI callable as a module-level variable named ``application``.
 For more information on this file, see
 https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/
 """
+# Пока что не ясно, для чего этот файл.
+# Читаю документацию, по мере возможности.
 
 import os
 
