@@ -15,7 +15,7 @@ class Group(models.Model):
     slug - строка для подстановки в url;\n
     description - развёрнутое описание группы."""
     title = models.CharField(max_length=200)
-    slug = models.TextField(blank=False, null=False, default='newgroup')
+    slug = models.SlugField(blank=False, null=False, unique=True)
     description = models.TextField(blank=True, null=True)
 
     def __str__(self) -> str:
