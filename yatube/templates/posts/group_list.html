@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
+{% comment %} Шаблон для отображения группы. {% endcomment %}
 {% block title_block %}
   Записи сообщества {{ group }}
 {% endblock %}
 {% block content %}
-  <!-- класс py-5 создает отступы сверху и снизу блока -->
   <div class="container">
     <h1>{{ group.title }}</h1>
     <p>{{ group.description }} </p>
