@@ -1,5 +1,8 @@
 """Настройки админки для приложения posts."""
 from django.contrib import admin
+
+from yatube.settings import EMPTY_VALUE_PLACEHOLDER
+
 from .models import Post
 from .models import Group
 
@@ -10,16 +13,15 @@ class PostAdmin(admin.ModelAdmin):
     list_editable = ('group', )
     search_fields = ('text', )
     list_filter = ('pub_date', )
-    empty_value_display = '-пусто-'
+    empty_value_display = EMPTY_VALUE_PLACEHOLDER
 
 
 class GroupAdmin(admin.ModelAdmin):
     """Настройка отображения модели Group в админке."""
     list_display = ('pk', 'title', 'slug', 'description')
     search_fields = ('title', 'slug')
-    empty_value_display = '-пусто-'
+    empty_value_display = EMPTY_VALUE_PLACEHOLDER
 
 
-# Тут регистрируем модели из models.py c указанием настроек для админки
 admin.site.register(Post, PostAdmin)
 admin.site.register(Group, GroupAdmin)

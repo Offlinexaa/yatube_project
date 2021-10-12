@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-{% comment %} Шаблон для отображения группы. {% endcomment %}
+{% comment %}Шаблон для отображения группы.{% endcomment %}
 {% block title_block %}
-  Записи сообщества {{ group }}
+  Записи сообщества {{ group.title }}
 {% endblock %}
 {% block content %}
   <div class="container">
@@ -17,7 +17,7 @@
             Дата публикации: {{ post.pub_date|date:"d E Y" }}
           </li>
         </ul>
-        <p>{{ post.text }}</p>
+        <p>{{ post.text|linebreaks }}</p>
       </article>
       {% if not forloop.last %}<hr>{% endif %}
    {% endfor %}

@@ -129,5 +129,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Тут лежат наши статические файлы
+
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+
+EMPTY_VALUE_PLACEHOLDER = '-пусто-'
