@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-{% comment %} Шаблон главной страницы. {% endcomment %}
+{% comment %}Шаблон главной страницы.{% endcomment %}
 {% block title_block %}
-  {{ title }}
+  Последние обновления на сайте
 {% endblock %}
 {% block content %}
   <div class="container">
@@ -17,19 +17,13 @@
           </li>
         </ul>
         <p>{{ post.text }}</p>
-        {% if post.group != None %}
-          <a href="{% url "posts:group_page" post.group.slug %}">
+        {% if post.group %}
+          <a href="{% url "posts:group" post.group.slug %}">
             Все записи группы {{ post.group }}
           </a>
-        {% comment %}
-          Пока отключено.
-          TODO: Придумать, как показать посты без группы
-          {% else %}
-            <a href={% url "posts:group_page" %}>Все записи без группы</a>
-        {% endcomment %}
         {% endif %}
       </article>
       {% if not forloop.last %}<hr>{% endif %}
-   {% endfor %}
+    {% endfor %}
   </div>  
 {% endblock  %}

@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-# Для главной страницы в urlpatterns добавляем пути из posts.urls
+
 urlpatterns = [
     path('', include('posts.urls', namespace='posts')),
     path('admin/', admin.site.urls, name='admin_page'),
