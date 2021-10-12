@@ -12,7 +12,7 @@ class Group(models.Model):
         max_length=200,
         verbose_name='Заголовок',
         help_text='Максимальная длинна 200 символов',
-        )
+    )
     slug = models.SlugField(unique=True, verbose_name='Путь')
     description = models.TextField(verbose_name='Описание')
 
@@ -30,7 +30,7 @@ class Post(models.Model):
         auto_now_add=True,
         verbose_name='Дата публикации',
         help_text='По умолчанию: текущая дата/время'
-        )
+    )
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
