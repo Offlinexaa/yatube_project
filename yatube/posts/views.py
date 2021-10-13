@@ -1,7 +1,7 @@
 """Определения отображений приложения posts."""
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, render
 
 from .models import Group, Post
 
