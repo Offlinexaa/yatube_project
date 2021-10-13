@@ -2,9 +2,7 @@
 from django.contrib import admin
 
 from yatube.settings import EMPTY_VALUE_PLACEHOLDER
-
-from .models import Post
-from .models import Group
+from .models import Group, Post
 
 
 class PostAdmin(admin.ModelAdmin):
