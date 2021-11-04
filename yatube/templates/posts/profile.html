@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% comment %}Шаблон страницы профиля пользователя.{% endcomment %}
+{% block title_block %}
+  Профайл пользователя {{ author.get_full_name }}
+{% endblock %}
+{% block content %}
+  <div class="container py-5">        
+    <h1>Все посты пользователя {{ author.get_full_name }} </h1>
+    <h3>Всего постов: {{ total_posts }} </h3>
+    {% for post in page_obj %}
+      <article>
+        {% include "posts/includes/post.html"%}
+        <a href="{% url "posts:post_detail" post.pk %}">подробная информация </a>
+        {% if post.group %}
+          <p>
+            <a href="{% url "posts:group" post.group.slug %}">
+              Все записи группы {{ post.group }}
+            </a>
+          </p>
+        {% endif %}
+      </article>
+      {% if not forloop.last %}<hr>{% endif %}
+    {% endfor %}
+    {% include 'posts/includes/paginator.html' %}
+  </div>
+{% endblock %}
