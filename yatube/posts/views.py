@@ -39,7 +39,7 @@ def group_posts(request: HttpRequest, slug: str) -> HttpResponse:
 
 def profile(request, username):
     # Здесь код запроса к модели и создание словаря контекста
-    author = User.objects.filter(username=username)[0]
+    author = User.objects.get(username=username)
     post_list = author.posts.all()
     total_posts = len(post_list)
     paginator = Paginator(post_list, 10)
@@ -56,6 +56,17 @@ def profile(request, username):
 
 def post_detail(request, post_id):
     # Здесь код запроса к модели и создание словаря контекста
+    post = Post.objects.get(pk=post_id)
+    author = post.author
+    post_count = author.posts.count()
+    if len(post.text) > 30:
+        post_head_part = post.text[:30]
+    else:
+        post_head_part = post.text
+    
     context = {
+        'post': post,
+        'post_count': post_count,
+        'post_head_part': post_head_part,
     }
     return render(request, 'posts/post_detail.html', context) 

@@ -100,7 +100,7 @@ EMPTY_VALUE_PLACEHOLDER = '-пусто-'
 
 LOGIN_URL = 'users:login'
 
-LOGIN_REDIRECT_URL = 'posts:index'
+LOGIN_REDIRECT_URL = 'posts:main_page'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 
