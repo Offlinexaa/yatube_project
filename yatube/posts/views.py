@@ -1,10 +1,12 @@
 """Определения отображений приложения posts."""
+from datetime import date
 from re import template
 from django.http.request import HttpRequest
 from django.core.paginator import Paginator
 from django.http.response import HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 
+from .forms import PostForm
 from .models import Group, Post, User
 
 
@@ -38,7 +40,6 @@ def group_posts(request: HttpRequest, slug: str) -> HttpResponse:
 
 
 def profile(request, username):
-    # Здесь код запроса к модели и создание словаря контекста
     author = User.objects.get(username=username)
     post_list = author.posts.all()
     total_posts = len(post_list)
@@ -55,7 +56,6 @@ def profile(request, username):
 
 
 def post_detail(request, post_id):
-    # Здесь код запроса к модели и создание словаря контекста
     post = Post.objects.get(pk=post_id)
     author = post.author
     post_count = author.posts.count()
@@ -70,3 +70,31 @@ def post_detail(request, post_id):
         'post_head_part': post_head_part,
     }
     return render(request, 'posts/post_detail.html', context) 
+
+
+def post_create(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            author = request.user
+            pub_date = date.today()
+            text = form.cleaned_data['text']
+            group = form.cleaned_data['group']
+            if group == '':
+                group = None
+            Post.objects.create(
+                author=author,
+                pub_date=pub_date,
+                group=group,
+                text=text,
+            )
+            return redirect(f'/profile/{author.username}/')
+        context = {
+            'form': form,
+        }
+        return render(request, 'posts/create_post.html', context)
+    form = PostForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'posts/create_post.html', context)
