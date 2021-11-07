@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% comment %}Шаблон главной страницы.{% endcomment %}
 {% block title_block %}
-  Новый пост
+  {% if is_edit %}
+    Редактировать пост
+  {% else %}
+    Новый пост
+  {% endif %}  
 {% endblock %}
 {% block content %}
   <div class="container py-5">
@@ -9,7 +13,11 @@
       <div class="col-md-8 p-5">
         <div class="card">
           <div class="card-header">       
-            Новый пост             
+            {% if is_edit %}
+              Редактировать пост
+            {% else %}
+              Новый пост
+            {% endif %}          
           </div>
           <div class="card-body">
             {% load user_filters %}        
@@ -38,7 +46,11 @@
 
               <div class="d-flex justify-content-end">
                 <button type="submit" class="btn btn-primary">
-                  Сохранить
+                  {% if is_edit %}
+                    Сохранить
+                  {% else %}
+                    Добавить
+                  {% endif %} 
                 </button>
               </div>
             </form>

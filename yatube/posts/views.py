@@ -1,9 +1,10 @@
 """Определения отображений приложения posts."""
 from datetime import date
-from re import template
+
 from django.http.request import HttpRequest
 from django.core.paginator import Paginator
 from django.http.response import HttpResponse
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import PostForm
@@ -38,7 +39,7 @@ def group_posts(request: HttpRequest, slug: str) -> HttpResponse:
     template = 'posts/group_list.html'
     return render(request, template, context)
 
-
+@login_required
 def profile(request, username):
     author = User.objects.get(username=username)
     post_list = author.posts.all()
@@ -72,6 +73,7 @@ def post_detail(request, post_id):
     return render(request, 'posts/post_detail.html', context) 
 
 
+@login_required
 def post_create(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -96,5 +98,29 @@ def post_create(request):
     form = PostForm()
     context = {
         'form': form,
+    }
+    return render(request, 'posts/create_post.html', context)
+
+
+@login_required
+def post_eidt(request, post_id):
+    user = request.user
+    post = Post.objects.get(pk=post_id)
+    if post.author != user:
+        return redirect(f'/posts/{post_id}')
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(f'/posts/{post_id}')
+        context = {
+            'form': form,
+            'is_edit': True,
+        }
+        return render(request, 'posts/create_post.html', context)
+    form = PostForm(initial={'text': post.text, 'group': post.group})
+    context = {
+        'form': form,
+        'is_edit': True,
     }
     return render(request, 'posts/create_post.html', context)

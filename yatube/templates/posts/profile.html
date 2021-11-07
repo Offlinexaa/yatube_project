@@ -10,14 +10,6 @@
     {% for post in page_obj %}
       <article>
         {% include "posts/includes/post.html"%}
-        <a href="{% url "posts:post_detail" post.pk %}">подробная информация </a>
-        {% if post.group %}
-          <p>
-            <a href="{% url "posts:group" post.group.slug %}">
-              Все записи группы {{ post.group }}
-            </a>
-          </p>
-        {% endif %}
       </article>
       {% if not forloop.last %}<hr>{% endif %}
     {% endfor %}
