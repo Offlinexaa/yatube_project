@@ -39,7 +39,7 @@ def group_posts(request: HttpRequest, slug: str) -> HttpResponse:
     template = 'posts/group_list.html'
     return render(request, template, context)
 
-@login_required
+# @login_required
 def profile(request, username):
     author = User.objects.get(username=username)
     post_list = author.posts.all()
@@ -73,7 +73,7 @@ def post_detail(request, post_id):
     return render(request, 'posts/post_detail.html', context) 
 
 
-@login_required
+# @login_required
 def post_create(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -82,6 +82,9 @@ def post_create(request):
             pub_date = date.today()
             text = form.cleaned_data['text']
             group = form.cleaned_data['group']
+            # Добавлено для формы, не опирающейся на модель
+            group = Group.objects.get(pk=group)
+            # ---------------------------------------------
             if group == '':
                 group = None
             Post.objects.create(
@@ -102,7 +105,7 @@ def post_create(request):
     return render(request, 'posts/create_post.html', context)
 
 
-@login_required
+# @login_required
 def post_eidt(request, post_id):
     user = request.user
     post = Post.objects.get(pk=post_id)
@@ -118,7 +121,7 @@ def post_eidt(request, post_id):
             'is_edit': True,
         }
         return render(request, 'posts/create_post.html', context)
-    form = PostForm(initial={'text': post.text, 'group': post.group})
+    form = PostForm(initial={'text': post.text, 'group': post.group.pk})
     context = {
         'form': form,
         'is_edit': True,
