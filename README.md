@@ -55,3 +55,7 @@ python3 manage.py runserver
 Python 3.7 или выше
 
 Django 2.2.24
+
+pytz 2021.3
+
+sqlparse 0.4.2
